@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white, size: 50),
         cardColor: Colors.transparent,
         listTileTheme: const ListTileThemeData(
+          selectedColor: Colors.white10,
           textColor: Colors.white,
           tileColor: Colors.transparent,
           titleTextStyle: TextStyle(color: Colors.white, fontSize: 30),
@@ -105,11 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ListView.builder(
                       itemCount: 4,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                            'Time $index',
-                          ),
-                        );
+                        return Card(child: ,)
+                        // ListTile(
+                        //   title: Text(
+                        //     'Time $index',
+                        //   ),
+                        // );
                       }),
                 ),
               )
@@ -135,10 +137,10 @@ class Dailog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
-      width: width,
+      color: Colors.white,
+      width: width * 0.9,
       height: height * 0.4,
-      child: const Dialog(
+      child: AlertDialog(
         backgroundColor: Colors.transparent,
       ),
     );
