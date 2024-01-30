@@ -9,12 +9,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // theme: ThemeData(
-      //   useMaterial3: true,
-      // ),
-      home: MyHomePage(),
+      theme: ThemeData(
+        // textTheme:
+        //     TextTheme(headline1: TextStyle(color: Colors.white, fontSize: 30)
+        //         // bodyLarge: TextStyle(color: Colors.white, fontSize: 30),
+        //         // bodyText1: TextStyle(color: Colors.white, fontSize: 20),
+        //         // bodyText2: TextStyle(color: Colors.white, fontSize: 10),
+        //         ),
+        textTheme: const TextTheme(
+          titleLarge: TextStyle(
+              color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold),
+          bodyLarge: TextStyle(color: Colors.white, fontSize: 30),
+        ),
+        iconTheme: const IconThemeData(color: Colors.white, size: 50),
+        cardColor: Colors.transparent,
+        listTileTheme: const ListTileThemeData(
+          textColor: Colors.white,
+          tileColor: Colors.transparent,
+          titleTextStyle: TextStyle(color: Colors.white, fontSize: 30),
+        ),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(),
     );
   }
 }
@@ -29,6 +47,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return
         // SingleChildScrollView(
         //   child:
@@ -56,30 +76,41 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       Text(
                         ' Alarm ',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.titleLarge,
+                        //  TextStyle(
+                        //     color: Colors.white,
+                        //     fontSize: 50,
+                        //     fontWeight: FontWeight.bold),
                       ),
                       IconButton(
                         onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Dailog(width: width, height: height);
+                              });
                           setState(() {});
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.add,
-                          color: Colors.white,
-                          size: 50,
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              Card(
-                color: Colors.transparent,
-                child: Text(
-                  'Time',
-                  style: TextStyle(color: Colors.white, fontSize: 30),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                  child: ListView.builder(
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            'Time $index',
+                          ),
+                        );
+                      }),
                 ),
               )
             ],
@@ -88,5 +119,28 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
     // );
+  }
+}
+
+class Dailog extends StatelessWidget {
+  const Dailog({
+    super.key,
+    required this.width,
+    required this.height,
+  });
+
+  final double width;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      width: width,
+      height: height * 0.4,
+      child: const Dialog(
+        backgroundColor: Colors.transparent,
+      ),
+    );
   }
 }
