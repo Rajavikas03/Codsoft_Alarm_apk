@@ -12,12 +12,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // textTheme:
-        //     TextTheme(headline1: TextStyle(color: Colors.white, fontSize: 30)
-        //         // bodyLarge: TextStyle(color: Colors.white, fontSize: 30),
-        //         // bodyText1: TextStyle(color: Colors.white, fontSize: 20),
-        //         // bodyText2: TextStyle(color: Colors.white, fontSize: 10),
-        //         ),
         textTheme: const TextTheme(
           titleLarge: TextStyle(
               color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold),
@@ -25,12 +19,6 @@ class MyApp extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: Colors.white, size: 50),
         cardColor: Colors.transparent,
-        listTileTheme: const ListTileThemeData(
-          selectedColor: Colors.white10,
-          textColor: Colors.white,
-          tileColor: Colors.transparent,
-          titleTextStyle: TextStyle(color: Colors.white, fontSize: 30),
-        ),
         useMaterial3: true,
       ),
       home: const MyHomePage(),
@@ -46,6 +34,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late List isSwitch;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -78,10 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       Text(
                         ' Alarm ',
                         style: Theme.of(context).textTheme.titleLarge,
-                        //  TextStyle(
-                        //     color: Colors.white,
-                        //     fontSize: 50,
-                        //     fontWeight: FontWeight.bold),
                       ),
                       IconButton(
                         onPressed: () {
@@ -106,15 +91,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ListView.builder(
                       itemCount: 4,
                       itemBuilder: (context, index) {
-                        return Card(child: ,)
-                        // ListTile(
-                        //   title: Text(
-                        //     'Time $index',
-                        //   ),
-                        // );
+                        return Card(
+                            color: Theme.of(context).cardColor,
+                            child: ListTile(
+                              trailing: Switch(
+                                  value: isSwitch[index],
+                                  onChanged: (val) {
+                                    setState(() {
+                                      isSwitch[index] = val;
+                                    });
+                                  }),
+                              title: Text(
+                                'Time $index',
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            ));
                       }),
                 ),
-              )
+              ),
             ],
           ),
         ],
